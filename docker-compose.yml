@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  core3_grpc_client_service:
+    image: core3_grpc_client_image:latest
+    container_name: core3_grpc_client_container
+    volumes:
+      - .:/core3_grpc_client_volume
+    ports:
+      - "6002:80"
+    restart: always
+    build: .
+    command: "dotnet run"
+#    depends_on:
+#      - core3_grpc_client_db
+
+#  core3_grpc_client_db:
+#    image: "mcr.microsoft.com/mssql/server"
+#    container_name: core3_grpc_client_db
+#    volumes:
+#      - ./data:/data/db
+#    environment:
+#      SA_PASSWORD: "P@ssw0rd"
+#      ACCEPT_EULA: "Y"
+#    restart: always

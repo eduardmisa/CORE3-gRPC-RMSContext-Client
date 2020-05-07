@@ -1,0 +1,104 @@
+syntax = "proto3";
+
+option csharp_namespace = "RMSContext";
+
+package application;
+
+
+service ApplicationRPC {
+
+  rpc List (ListRequest) returns (ListResponse);
+  rpc Retrieve (RetrieveRequest) returns (RetrieveResponse);
+  rpc Create (CreateRequest) returns (CreateResponse);
+  rpc Update (UpdateRequest) returns (UpdateResponse);
+  rpc Delete (DeleteRequest) returns (DeleteResponse);
+}
+
+
+message BaseResponse {
+  bool Success = 1;
+  string Error = 2;
+}
+
+
+// Base Viewmodel
+message ApplicationViewModel {
+  int32 Id = 1;
+  int64 Created = 2;
+  string CreatedBy = 3;
+  int64 Modified = 4;
+  string ModifiedBy = 5;
+  string Code = 6;
+  string Name = 7;
+  string Description = 8;
+}
+
+
+// LIST
+message ListRequest {
+  int32 Page = 1;
+  int32 PageSize = 2;
+  string OrderBy = 3;
+  string Search = 4;
+}
+message ListData {
+  int32 Count = 1;
+  int32 Page = 2;
+  int32 PageSize = 3;
+  repeated ApplicationViewModel Results = 4;
+}
+message ListResponse {
+  bool Success = 1;
+  ListData Data = 2;
+  string Error = 3;
+}
+
+
+// RETRIEVE
+message RetrieveRequest {
+  int32 Id = 1;
+}
+message RetrieveResponse {
+  bool Success = 1;
+  ApplicationViewModel Data = 2;
+  string Error = 3;
+}
+
+
+
+// CREATE
+message CreateRequest {
+  string Name = 1;
+  string Description = 2;
+}
+message CreateResponse {
+  bool Success = 1;
+  ApplicationViewModel Data = 2;
+  string Error = 3;
+}
+
+
+
+// UPDATE
+message UpdateRequest {
+  int32 Id = 1;
+  string Name = 2;
+  string Description = 3;
+}
+message UpdateResponse {
+  bool Success = 1;
+  ApplicationViewModel Data = 2;
+  string Error = 3;
+}
+
+
+
+// DELETE
+message DeleteRequest {
+  int32 Id = 1;
+}
+message DeleteResponse {
+  bool Success = 1;
+  ApplicationViewModel Data = 2;
+  string Error = 3;
+}
